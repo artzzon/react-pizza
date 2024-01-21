@@ -9,23 +9,20 @@ function Categories() {
     "Острые",
     "Закрытые",
   ];
-  const [activeCategory, setActiveCategory] = React.useState("Все");
+  const [activeCategory, setActiveCategory] = React.useState(0);
 
-  const onClickActiveCategory = (e) => {
-    const category = e.target.innerText;
-    if (category !== activeCategory) {
-      setActiveCategory(category);
-    }
+  const onClickActiveCategory = (category) => {
+    setActiveCategory(category);
   };
 
   return (
     <div className="categories">
       <ul>
-        {categories.map((category) => (
+        {categories.map((category, i) => (
           <li
             key={category}
-            className={category === activeCategory ? "active" : ""}
-            onClick={(e) => onClickActiveCategory(e)}
+            className={i === activeCategory ? "active" : ""}
+            onClick={() => onClickActiveCategory(i)}
           >
             {category}
           </li>
