@@ -1,14 +1,6 @@
 import React from "react";
 /* eslint-disable react/prop-types */
-export default function PizzaBlock({
-  category,
-  id,
-  imageUrl,
-  price,
-  sizes,
-  title,
-  types,
-}) {
+export default function PizzaBlock({ imageUrl, price, sizes, title, types }) {
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
   const pizzaTypes = ["тонкое", "традиционное"];
