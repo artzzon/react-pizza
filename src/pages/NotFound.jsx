@@ -1,5 +1,5 @@
-import React from "react";
+import NotFoundBlock from "../components/NotFound/index";
 
 export default function NotFound() {
-  return <div>NotFound</div>;
+  return <NotFoundBlock />;
 }
