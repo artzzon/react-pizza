@@ -1,5 +1,6 @@
-import React from "react";
 /* eslint-disable react/prop-types */
+import React from "react";
+
 export default function PizzaBlock({ imageUrl, price, sizes, title, types }) {
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
