@@ -1,0 +1,39 @@
+.ul {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 18px;
+  text-align: center;
+  :global {
+    .selected {
+      border: 2px solid #fe5f1e;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      a {
+        color: #fe5f1e;
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+
+    .previous .next {
+      background-color: red;
+    }
+
+    li {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      line-height: 38px;
+      border: 1px solid grey;
+      border-radius: 30px;
+      &:hover {
+        border: 1px solid #fe5f1e;
+        background-color: #fe5f1e;
+        a {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

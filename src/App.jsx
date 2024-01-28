@@ -11,6 +11,8 @@ import "./scss/app.scss";
 export const CategoryContext = React.createContext(0);
 export const SortContext = React.createContext("title");
 export const SearchContext = React.createContext("");
+export const PaginationContext = React.createContext({});
+
 function App() {
   const [activeCategory, setActiveCategory] = React.useState(0);
   const [openSort, setOpenSort] = React.useState(false);
@@ -25,6 +27,8 @@ function App() {
     "алфавиту ↓": "-title",
   };
   const sortNames = Object.keys(sortObjNames);
+  const [currentPage, setCurrentPage] = React.useState(1);
+
   return (
     <CategoryContext.Provider value={{ activeCategory, setActiveCategory }}>
       <SortContext.Provider
@@ -38,16 +42,18 @@ function App() {
         }}
       >
         <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-          <div className="wrapper">
-            <Header />
-            <div className="content">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+          <PaginationContext.Provider value={{ currentPage, setCurrentPage }}>
+            <div className="wrapper">
+              <Header />
+              <div className="content">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </div>
             </div>
-          </div>
+          </PaginationContext.Provider>
         </SearchContext.Provider>
       </SortContext.Provider>
     </CategoryContext.Provider>

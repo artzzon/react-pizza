@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "./Search.module.scss";
-import { SearchContext } from "../../App";
+import { PaginationContext, SearchContext } from "../../App";
 
 export default function Search() {
   const { searchValue, setSearchValue } = React.useContext(SearchContext);
-
+  const { setCurrentPage } = React.useContext(PaginationContext);
   const onChangeValue = (e) => {
     setSearchValue(e.target.value);
+    setCurrentPage(1);
   };
   return (
     <div className={styles.root}>
