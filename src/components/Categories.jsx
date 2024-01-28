@@ -1,4 +1,5 @@
 import React from "react";
+import { CategoryContext } from "../App";
 
 function Categories() {
   const categories = [
@@ -9,7 +10,9 @@ function Categories() {
     "Острые",
     "Закрытые",
   ];
-  const [activeCategory, setActiveCategory] = React.useState(0);
+
+  const { activeCategory, setActiveCategory } =
+    React.useContext(CategoryContext);
 
   const onClickActiveCategory = (category) => {
     setActiveCategory(category);

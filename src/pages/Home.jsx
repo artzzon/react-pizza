@@ -3,20 +3,26 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
+import { CategoryContext } from "../App";
 
 const Home = () => {
   const [items, setItems] = React.useState([]);
   const [loading, isLoading] = React.useState(true);
+  const { activeCategory } = React.useContext(CategoryContext);
 
   React.useEffect(() => {
-    fetch("https://e68369cd08c98611.mokky.dev/items")
+    fetch(
+      `https://e68369cd08c98611.mokky.dev/items${
+        activeCategory !== 0 ? "?category=" + activeCategory : ""
+      }`
+    )
       .then((res) => res.json())
       .then((json) => {
         setItems(json);
         isLoading(false);
       });
     window.scrollTo(0, 0);
-  }, []);
+  }, [activeCategory]);
 
   return (
     <div className="container">
