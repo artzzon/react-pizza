@@ -10,10 +10,12 @@ import "./scss/app.scss";
 
 export const CategoryContext = React.createContext(0);
 export const SortContext = React.createContext("title");
+export const SearchContext = React.createContext("");
 function App() {
   const [activeCategory, setActiveCategory] = React.useState(0);
   const [openSort, setOpenSort] = React.useState(false);
   const [selectedSort, setSelectedSort] = React.useState(0);
+  const [searchValue, setSearchValue] = React.useState("");
   const sortObjNames = {
     "популярности ↑": "rating",
     "популярности ↓": "-rating",
@@ -35,16 +37,18 @@ function App() {
           sortObjNames,
         }}
       >
-        <div className="wrapper">
-          <Header />
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+        <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+          <div className="wrapper">
+            <Header />
+            <div className="content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
           </div>
-        </div>
+        </SearchContext.Provider>
       </SortContext.Provider>
     </CategoryContext.Provider>
   );
