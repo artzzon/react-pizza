@@ -1,9 +1,9 @@
 import React from "react";
+import { SortContext } from "../App";
 
 function Sort() {
-  const [openSort, setOpenSort] = React.useState(false);
-  const [selectedSort, setSelectedSort] = React.useState(0);
-  const sortNames = ["популярности", "цене", "алфавиту"];
+  const { openSort, setOpenSort, selectedSort, setSelectedSort, sortNames } =
+    React.useContext(SortContext);
 
   const onClickSelectSort = (sortId) => {
     setSelectedSort(sortId);

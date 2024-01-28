@@ -9,20 +9,43 @@ import Header from "./components/Header";
 import "./scss/app.scss";
 
 export const CategoryContext = React.createContext(0);
+export const SortContext = React.createContext("title");
 function App() {
   const [activeCategory, setActiveCategory] = React.useState(0);
+  const [openSort, setOpenSort] = React.useState(false);
+  const [selectedSort, setSelectedSort] = React.useState(0);
+  const sortObjNames = {
+    "популярности ↑": "rating",
+    "популярности ↓": "-rating",
+    "цене ↑": "price",
+    "цене ↓": "-price",
+    "алфавиту ↑": "title",
+    "алфавиту ↓": "-title",
+  };
+  const sortNames = Object.keys(sortObjNames);
   return (
     <CategoryContext.Provider value={{ activeCategory, setActiveCategory }}>
-      <div className="wrapper">
-        <Header />
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+      <SortContext.Provider
+        value={{
+          openSort,
+          setOpenSort,
+          selectedSort,
+          setSelectedSort,
+          sortNames,
+          sortObjNames,
+        }}
+      >
+        <div className="wrapper">
+          <Header />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </div>
-      </div>
+      </SortContext.Provider>
     </CategoryContext.Provider>
   );
 }

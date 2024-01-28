@@ -3,18 +3,21 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
-import { CategoryContext } from "../App";
+import { CategoryContext, SortContext } from "../App";
 
 const Home = () => {
   const [items, setItems] = React.useState([]);
   const [loading, isLoading] = React.useState(true);
   const { activeCategory } = React.useContext(CategoryContext);
+  const { selectedSort, sortObjNames } = React.useContext(SortContext);
 
   React.useEffect(() => {
+    isLoading(true);
     fetch(
-      `https://e68369cd08c98611.mokky.dev/items${
-        activeCategory !== 0 ? "?category=" + activeCategory : ""
-      }`
+      `https://e68369cd08c98611.mokky.dev/items?sortBy=${
+        Object.values(sortObjNames)[selectedSort]
+      }
+      ${activeCategory !== 0 ? "category=" + activeCategory : ""}`
     )
       .then((res) => res.json())
       .then((json) => {
@@ -22,7 +25,7 @@ const Home = () => {
         isLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [activeCategory]);
+  }, [activeCategory, selectedSort, sortObjNames]);
 
   return (
     <div className="container">
