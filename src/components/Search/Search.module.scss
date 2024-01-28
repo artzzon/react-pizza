@@ -1,0 +1,17 @@
+.root {
+  width: 300px;
+  height: 45px;
+  padding: 20px 20px;
+  border-radius: 10px;
+  border: 1px solid grey;
+
+  font-size: 16px;
+  transition: all 0.1s ease-in-out;
+
+  &:focus {
+    width: 350px;
+    border: 2px solid #fe5f1e;
+    color: #fe5f1e;
+    font-weight: bold;
+  }
+}
