@@ -1,21 +1,22 @@
-import React from "react";
-import { CategoryContext } from "../App";
+import { useSelector, useDispatch } from "react-redux";
+import { setActiveCategory } from "../redux/slices/filterSlice";
+const categories = [
+  "Все",
+  "Мясные",
+  "Вегетарианские",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
 
 function Categories() {
-  const categories = [
-    "Все",
-    "Мясные",
-    "Вегетарианские",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
-
-  const { activeCategory, setActiveCategory } =
-    React.useContext(CategoryContext);
+  const dispatch = useDispatch();
+  const activeCategory = useSelector(
+    (state) => state.filterSlice.activeCategory
+  );
 
   const onClickActiveCategory = (category) => {
-    setActiveCategory(category);
+    dispatch(setActiveCategory(category));
   };
 
   return (

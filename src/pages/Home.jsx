@@ -4,18 +4,16 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
 import Pagination from "../components/Pagination";
-import {
-  CategoryContext,
-  PaginationContext,
-  SearchContext,
-  SortContext,
-} from "../App";
+import { PaginationContext, SearchContext, SortContext } from "../App";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [pizzas, setPizzas] = React.useState([]);
   const [paginationMeta, setPaginationMeta] = React.useState({});
   const [loading, isLoading] = React.useState(true);
-  const { activeCategory } = React.useContext(CategoryContext);
+  const activeCategory = useSelector(
+    (state) => state.filterSlice.activeCategory
+  );
   const { selectedSort, sortObjNames } = React.useContext(SortContext);
   const { searchValue } = React.useContext(SearchContext);
   const { currentPage } = React.useContext(PaginationContext);
