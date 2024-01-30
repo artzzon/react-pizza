@@ -4,7 +4,7 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
 import Pagination from "../components/Pagination";
-import { PaginationContext, SearchContext, SortContext } from "../App";
+import { PaginationContext, SearchContext } from "../App";
 import { useSelector } from "react-redux";
 
 const Home = () => {
@@ -14,16 +14,16 @@ const Home = () => {
   const activeCategory = useSelector(
     (state) => state.filterSlice.activeCategory
   );
-  const { selectedSort, sortObjNames } = React.useContext(SortContext);
+  const selectedSort = useSelector(
+    (state) => state.sortSlice.selectedSort.sortProperty
+  );
   const { searchValue } = React.useContext(SearchContext);
   const { currentPage } = React.useContext(PaginationContext);
 
   React.useEffect(() => {
     isLoading(true);
     fetch(
-      `https://e68369cd08c98611.mokky.dev/items?page=${currentPage}&limit=4&sortBy=${
-        Object.values(sortObjNames)[selectedSort]
-      }
+      `https://e68369cd08c98611.mokky.dev/items?sortBy=${selectedSort}&page=${currentPage}&limit=4
       ${activeCategory !== 0 ? "&category=" + activeCategory : ""}
       ${searchValue.length !== 0 ? `&title=*${searchValue}` : ""}`
     )
@@ -34,7 +34,7 @@ const Home = () => {
         isLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [activeCategory, selectedSort, sortObjNames, searchValue, currentPage]);
+  }, [activeCategory, selectedSort, searchValue, currentPage]);
   console.log();
   return (
     <div className="container">

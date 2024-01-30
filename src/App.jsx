@@ -13,45 +13,24 @@ export const SearchContext = React.createContext("");
 export const PaginationContext = React.createContext({});
 
 function App() {
-  const [openSort, setOpenSort] = React.useState(false);
-  const [selectedSort, setSelectedSort] = React.useState(0);
   const [searchValue, setSearchValue] = React.useState("");
-  const sortObjNames = {
-    "популярности ↑": "rating",
-    "популярности ↓": "-rating",
-    "цене ↑": "price",
-    "цене ↓": "-price",
-    "алфавиту ↑": "title",
-    "алфавиту ↓": "-title",
-  };
-  const sortNames = Object.keys(sortObjNames);
+
   const [currentPage, setCurrentPage] = React.useState(1);
   return (
-    <SortContext.Provider
-      value={{
-        openSort,
-        setOpenSort,
-        selectedSort,
-        setSelectedSort,
-        sortNames,
-        sortObjNames,
-      }}
-    >
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-        <PaginationContext.Provider value={{ currentPage, setCurrentPage }}>
-          <div className="wrapper">
-            <Header />
-            <div className="content">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
+    <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+      <PaginationContext.Provider value={{ currentPage, setCurrentPage }}>
+        <div className="wrapper">
+          <Header />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </div>
-        </PaginationContext.Provider>
-      </SearchContext.Provider>
-    </SortContext.Provider>
+        </div>
+      </PaginationContext.Provider>
+    </SearchContext.Provider>
   );
 }
 
