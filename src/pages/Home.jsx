@@ -4,7 +4,7 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
 import Pagination from "../components/Pagination";
-import { PaginationContext, SearchContext } from "../App";
+import { PaginationContext } from "../App";
 import { useSelector } from "react-redux";
 
 const Home = () => {
@@ -17,7 +17,8 @@ const Home = () => {
   const selectedSort = useSelector(
     (state) => state.sortSlice.selectedSort.sortProperty
   );
-  const { searchValue } = React.useContext(SearchContext);
+  const searchValue = useSelector((state) => state.searchSlice.searchValue);
+  //const { searchValue } = React.useContext(SearchContext);
   const { currentPage } = React.useContext(PaginationContext);
 
   React.useEffect(() => {

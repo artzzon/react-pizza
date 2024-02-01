@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./Search.module.scss";
-import { PaginationContext, SearchContext } from "../../App";
 import debounce from "lodash.debounce";
+import { PaginationContext } from "../../App";
+import { useDispatch } from "react-redux";
+import { setSearchValue } from "../../redux/slices/searchSlice";
 
 export default function Search() {
+  const dispatch = useDispatch();
   const [localSearchValue, setLocalSearchValue] = React.useState("");
-  const { setSearchValue } = React.useContext(SearchContext);
   const { setCurrentPage } = React.useContext(PaginationContext);
 
   const onChangeLocalValue = (e) => {
@@ -15,13 +17,13 @@ export default function Search() {
   };
 
   const onClickClear = () => {
-    setSearchValue("");
+    dispatch(setSearchValue(""));
     setLocalSearchValue("");
   };
 
   const onChangeValue = React.useCallback(
     debounce((str) => {
-      setSearchValue(str);
+      dispatch(setSearchValue(str));
       setCurrentPage(1);
     }, 500),
     []
