@@ -6,6 +6,7 @@ import Skeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
 import Pagination from "../components/Pagination";
 import { PaginationContext } from "../App";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Home = () => {
   const [pizzas, setPizzas] = React.useState([]);
@@ -18,20 +19,19 @@ const Home = () => {
     (state) => state.sortSlice.selectedSort.sortProperty
   );
   const searchValue = useSelector((state) => state.searchSlice.searchValue);
-  //const { searchValue } = React.useContext(SearchContext);
   const { currentPage } = React.useContext(PaginationContext);
 
   React.useEffect(() => {
     isLoading(true);
-    fetch(
-      `https://e68369cd08c98611.mokky.dev/items?sortBy=${selectedSort}&page=${currentPage}&limit=4
+    axios
+      .get(
+        `https://e68369cd08c98611.mokky.dev/items?sortBy=${selectedSort}&page=${currentPage}&limit=4
       ${activeCategory !== 0 ? "&category=" + activeCategory : ""}
       ${searchValue.length !== 0 ? `&title=*${searchValue}` : ""}`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        setPizzas(json.items);
-        setPaginationMeta(json.meta);
+      )
+      .then((res) => {
+        setPizzas(res.data.items);
+        setPaginationMeta(res.data.meta);
         isLoading(false);
       });
     window.scrollTo(0, 0);
