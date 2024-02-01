@@ -1,27 +1,45 @@
 import React from "react";
 import styles from "./Search.module.scss";
 import { PaginationContext, SearchContext } from "../../App";
+import debounce from "lodash.debounce";
 
 export default function Search() {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const [localSearchValue, setLocalSearchValue] = React.useState("");
+  const { setSearchValue } = React.useContext(SearchContext);
   const { setCurrentPage } = React.useContext(PaginationContext);
-  const onChangeValue = (e) => {
-    setSearchValue(e.target.value);
+
+  const onChangeLocalValue = (e) => {
+    setLocalSearchValue(e.target.value);
+    onChangeValue(e.target.value);
     setCurrentPage(1);
   };
+
+  const onClickClear = () => {
+    setSearchValue("");
+    setLocalSearchValue("");
+  };
+
+  const onChangeValue = React.useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+      setCurrentPage(1);
+    }, 500),
+    []
+  );
+
   return (
     <div className={styles.root}>
       <input
         type="text"
         className={styles.input}
         placeholder="Поиск пицц..."
-        value={searchValue}
-        onChange={(e) => onChangeValue(e)}
+        value={localSearchValue}
+        onChange={(e) => onChangeLocalValue(e)}
       />
-      {searchValue && (
+      {localSearchValue && (
         <svg
           className={styles.icon}
-          onClick={() => setSearchValue("")}
+          onClick={onClickClear}
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

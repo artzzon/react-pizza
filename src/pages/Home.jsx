@@ -35,7 +35,7 @@ const Home = () => {
       });
     window.scrollTo(0, 0);
   }, [activeCategory, selectedSort, searchValue, currentPage]);
-  console.log();
+
   return (
     <div className="container">
       <div className="content__top">
