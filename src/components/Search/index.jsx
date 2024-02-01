@@ -9,6 +9,7 @@ export default function Search() {
   const dispatch = useDispatch();
   const [localSearchValue, setLocalSearchValue] = React.useState("");
   const { setCurrentPage } = React.useContext(PaginationContext);
+  const inputRef = React.useRef();
 
   const onChangeLocalValue = (e) => {
     setLocalSearchValue(e.target.value);
@@ -19,6 +20,7 @@ export default function Search() {
   const onClickClear = () => {
     dispatch(setSearchValue(""));
     setLocalSearchValue("");
+    inputRef.current.focus();
   };
 
   const onChangeValue = React.useCallback(
@@ -32,6 +34,7 @@ export default function Search() {
   return (
     <div className={styles.root}>
       <input
+        ref={inputRef}
         type="text"
         className={styles.input}
         placeholder="Поиск пицц..."
