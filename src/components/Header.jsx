@@ -6,7 +6,7 @@ function Header() {
   return (
     <div className="header">
       <div className="container">
-        <Link to="/" className="header__logo">
+        <Link to="/" className="header__logo" onClick={() => window.reload()}>
           <img width="38" src={pizzaLogo} alt="Pizza logo" />
           <div>
             <h1>React Pizza v2</h1>
