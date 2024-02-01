@@ -14,7 +14,6 @@ export default function Search() {
   const onChangeLocalValue = (e) => {
     setLocalSearchValue(e.target.value);
     onChangeValue(e.target.value);
-    setCurrentPage(1);
   };
 
   const onClickClear = () => {
