@@ -1,10 +1,26 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../../redux/slices/cartSlice";
 
-export default function PizzaBlock({ imageUrl, price, sizes, title, types }) {
+const pizzaTypes = ["тонкое", "традиционное"];
+
+export default function PizzaBlock({
+  id,
+  imageUrl,
+  price,
+  sizes,
+  title,
+  types,
+}) {
+  const dispatch = useDispatch();
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
-  const pizzaTypes = ["тонкое", "традиционное"];
+  const cartItem = useSelector((state) =>
+    state.cartSlice.items.find((item) => item.id === id)
+  );
+
+  const countItems = cartItem ? cartItem.count : 0;
 
   const onClickActiveSize = (sizeId) => {
     setActiveSize(sizeId);
@@ -12,6 +28,17 @@ export default function PizzaBlock({ imageUrl, price, sizes, title, types }) {
 
   const onClickActiveType = (typeId) => {
     setActiveType(typeId);
+  };
+
+  const onClickAddItem = () => {
+    const item = {
+      id,
+      title,
+      imageUrl,
+      price,
+      count: 1,
+    };
+    dispatch(addItem(item));
   };
 
   return (
@@ -44,7 +71,10 @@ export default function PizzaBlock({ imageUrl, price, sizes, title, types }) {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <div
+          className="button button--outline button--add"
+          onClick={onClickAddItem}
+        >
           <svg
             width="12"
             height="12"
@@ -58,7 +88,7 @@ export default function PizzaBlock({ imageUrl, price, sizes, title, types }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          <i>{countItems}</i>
         </div>
       </div>
     </div>
