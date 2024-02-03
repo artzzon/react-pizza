@@ -21,7 +21,7 @@ const cartSlice = createSlice({
         findItem.count++;
       }
       state.totalPrice = state.items.reduce(
-        (total, item) => item.price + total,
+        (total, item) => item.price * item.count + total,
         0
       );
       state.totalCount = state.items.reduce(
