@@ -14,11 +14,20 @@ const cartSlice = createSlice({
       const findItem = state.items.find(
         (item) => item.id === action.payload.id
       );
+
       if (!findItem) {
         state.items.push(action.payload);
       } else {
         findItem.count++;
       }
+      state.totalPrice = state.items.reduce(
+        (total, item) => item.price + total,
+        0
+      );
+      state.totalCount = state.items.reduce(
+        (total, item) => item.count + total,
+        0
+      );
     },
   },
 });
