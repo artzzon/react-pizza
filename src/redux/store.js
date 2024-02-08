@@ -3,6 +3,7 @@ import filterSlice from "./slices/filterSlice";
 import sortSlice from "./slices/sortSlice";
 import searchSlice from "./slices/searchSlice";
 import cartSlice from "./slices/cartSlice";
+import fetchSlice from "./slices/fetchSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     sortSlice,
     searchSlice,
     cartSlice,
+    fetchSlice,
   },
 });

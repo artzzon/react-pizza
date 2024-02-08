@@ -5,13 +5,14 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
 import Pagination from "../components/Pagination";
 import { PaginationContext } from "../App";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPizzas } from "../redux/slices/fetchSlice";
 
 const Home = () => {
-  const [pizzas, setPizzas] = React.useState([]);
-  const [paginationMeta, setPaginationMeta] = React.useState({});
-  const [loading, isLoading] = React.useState(true);
+  const dispatch = useDispatch();
+  const { pizzas, paginationMeta, status } = useSelector(
+    (state) => state.fetchSlice
+  );
   const activeCategory = useSelector(
     (state) => state.filterSlice.activeCategory
   );
@@ -20,22 +21,15 @@ const Home = () => {
   );
   const searchValue = useSelector((state) => state.searchSlice.searchValue);
   const { currentPage } = React.useContext(PaginationContext);
-
+  const getPizzas = () => {
+    dispatch(
+      fetchPizzas({ selectedSort, currentPage, activeCategory, searchValue })
+    );
+  };
   React.useEffect(() => {
-    isLoading(true);
-    axios
-      .get(
-        `https://e68369cd08c98611.mokky.dev/items?sortBy=${selectedSort}&page=${currentPage}&limit=4
-      ${activeCategory !== 0 ? "&category=" + activeCategory : ""}
-      ${searchValue.length !== 0 ? `&title=*${searchValue}` : ""}`
-      )
-      .then((res) => {
-        setPizzas(res.data.items);
-        setPaginationMeta(res.data.meta);
-        isLoading(false);
-      });
-    window.scrollTo(0, 0);
-  }, [activeCategory, selectedSort, searchValue, currentPage]);
+    getPizzas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCategory, currentPage, searchValue, selectedSort]);
 
   return (
     <div className="container">
@@ -45,7 +39,7 @@ const Home = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {loading
+        {status === "loading"
           ? [...new Array(6)].map((_, i) => <Skeleton key={i} />)
           : pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
       </div>
