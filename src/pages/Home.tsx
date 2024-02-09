@@ -41,7 +41,16 @@ const Home = () => {
       <div className="content__items">
         {status === "loading"
           ? [...new Array(6)].map((_, i) => <Skeleton key={i} />)
-          : pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
+          : pizzas.map(
+              (pizza: {
+                id: string;
+                imageUrl: string;
+                price: string;
+                sizes: string[];
+                title: string;
+                types: string[];
+              }) => <PizzaBlock key={pizza.id} {...pizza} />
+            )}
       </div>
       <Pagination pageCount={paginationMeta?.["total_pages"]} />
     </div>

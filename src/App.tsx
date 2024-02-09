@@ -1,4 +1,3 @@
-//import React from "react";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
@@ -8,14 +7,20 @@ import Header from "./components/Header";
 
 import "./scss/app.scss";
 
-export const SortContext = React.createContext("title");
-export const SearchContext = React.createContext("");
+type SearchContextType = {
+  searchValue: string;
+  setSearchValue: (searchValue: string) => void;
+};
+
+export const SearchContext = React.createContext<SearchContextType | null>(
+  null
+);
 export const PaginationContext = React.createContext({});
 
-function App() {
+const App: React.FC = () => {
   const [searchValue, setSearchValue] = React.useState("");
-
   const [currentPage, setCurrentPage] = React.useState(1);
+
   return (
     <SearchContext.Provider value={{ searchValue, setSearchValue }}>
       <PaginationContext.Provider value={{ currentPage, setCurrentPage }}>
@@ -32,6 +37,6 @@ function App() {
       </PaginationContext.Provider>
     </SearchContext.Provider>
   );
-}
+};
 
 export default App;
