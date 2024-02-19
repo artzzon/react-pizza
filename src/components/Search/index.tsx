@@ -1,17 +1,19 @@
 import React from "react";
 import styles from "./Search.module.scss";
 import debounce from "lodash.debounce";
-import { PaginationContext } from "../../App";
+import { PaginationContext, PaginationContextType } from "../../App";
 import { useDispatch } from "react-redux";
 import { setSearchValue } from "../../redux/slices/searchSlice";
 
-export default function Search() {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
   const [localSearchValue, setLocalSearchValue] = React.useState("");
-  const { setCurrentPage } = React.useContext(PaginationContext);
-  const inputRef = React.useRef();
+  const { setCurrentPage } = React.useContext(
+    PaginationContext
+  ) as PaginationContextType;
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const onChangeLocalValue = (e) => {
+  const onChangeLocalValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalSearchValue(e.target.value);
     onChangeValue(e.target.value);
   };
@@ -19,7 +21,7 @@ export default function Search() {
   const onClickClear = () => {
     dispatch(setSearchValue(""));
     setLocalSearchValue("");
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   const onChangeValue = React.useCallback(
@@ -65,4 +67,6 @@ export default function Search() {
       )}
     </div>
   );
-}
+};
+
+export default Search;

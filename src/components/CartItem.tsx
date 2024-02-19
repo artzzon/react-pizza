@@ -1,7 +1,26 @@
 import { useSelector, useDispatch } from "react-redux";
 import { minusItem, plusItem, removeItem } from "../redux/slices/cartSlice";
+import React from "react";
 // eslint-disable-next-line react/prop-types
-const CartItem = ({ id, title, imageUrl, price, type, size, count }) => {
+type CartItemProps = {
+  id: number;
+  title: string;
+  imageUrl: string;
+  price: number;
+  type: string;
+  size: number;
+  count: number;
+};
+
+const CartItem: React.FC<CartItemProps> = ({
+  id,
+  title,
+  imageUrl,
+  price,
+  type,
+  size,
+  count,
+}) => {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) =>
     state.cartSlice.items.find(

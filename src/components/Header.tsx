@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import pizzaLogo from "../assets/img/pizza-logo.svg";
 import Search from "./Search";
 import { useSelector } from "react-redux";
+import React from "react";
 
-function Header() {
+const Header: React.FC = () => {
   const { totalCount, totalPrice } = useSelector((state) => state.cartSlice);
 
   return (
@@ -56,6 +57,6 @@ function Header() {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

@@ -8,7 +8,7 @@ import { PaginationContext } from "../App";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPizzas } from "../redux/slices/fetchSlice";
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const { pizzas, paginationMeta, status } = useSelector(
     (state) => state.fetchSlice
@@ -46,9 +46,9 @@ const Home = () => {
                 id: string;
                 imageUrl: string;
                 price: string;
-                sizes: string[];
+                sizes: number[];
                 title: string;
-                types: string[];
+                types: number[];
               }) => <PizzaBlock key={pizza.id} {...pizza} />
             )}
       </div>

@@ -12,14 +12,20 @@ type SearchContextType = {
   setSearchValue: (searchValue: string) => void;
 };
 
+export type PaginationContextType = {
+  currentPage: number;
+  setCurrentPage: (currentPage: number) => void;
+};
+
 export const SearchContext = React.createContext<SearchContextType | null>(
   null
 );
-export const PaginationContext = React.createContext({});
+export const PaginationContext =
+  React.createContext<PaginationContextType | null>(null);
 
 const App: React.FC = () => {
-  const [searchValue, setSearchValue] = React.useState("");
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const [searchValue, setSearchValue] = React.useState<string>("");
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
 
   return (
     <SearchContext.Provider value={{ searchValue, setSearchValue }}>
