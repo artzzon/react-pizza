@@ -1,14 +1,16 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 import styles from "./pagination.module.scss";
-import { PaginationContext } from "../../App";
+import { PaginationContext, PaginationContextType } from "../../App";
 
 type PaginationPropsType = {
   pageCount: number;
 };
 
 const Pagination: React.FC<PaginationPropsType> = ({ pageCount }) => {
-  const { setCurrentPage } = React.useContext(PaginationContext);
+  const { setCurrentPage } = React.useContext(
+    PaginationContext
+  ) as PaginationContextType;
   return (
     <ReactPaginate
       className={styles.ul}

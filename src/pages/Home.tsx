@@ -4,7 +4,7 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
 import Pagination from "../components/Pagination";
-import { PaginationContext } from "../App";
+import { PaginationContext, PaginationContextType } from "../App";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPizzas } from "../redux/slices/fetchSlice";
 
@@ -20,7 +20,9 @@ const Home: React.FC = () => {
     (state) => state.sortSlice.selectedSort.sortProperty
   );
   const searchValue = useSelector((state) => state.searchSlice.searchValue);
-  const { currentPage } = React.useContext(PaginationContext);
+  const { currentPage } = React.useContext(
+    PaginationContext
+  ) as PaginationContextType;
   const getPizzas = () => {
     dispatch(
       fetchPizzas({ selectedSort, currentPage, activeCategory, searchValue })
@@ -43,9 +45,9 @@ const Home: React.FC = () => {
           ? [...new Array(6)].map((_, i) => <Skeleton key={i} />)
           : pizzas.map(
               (pizza: {
-                id: string;
+                id: number;
                 imageUrl: string;
-                price: string;
+                price: number;
                 sizes: number[];
                 title: string;
                 types: number[];

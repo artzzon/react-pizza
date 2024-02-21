@@ -12,16 +12,16 @@ type PizzaBlockProps = {
   sizes: number[];
 };
 
-const pizzaTypes = ["тонкое", "традиционное"];
-const pizzaSize = [26, 30, 40];
+const pizzaTypes: string[] = ["тонкое", "традиционное"];
+const pizzaSize: number[] = [26, 30, 40];
 
 const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id,
+  title,
   imageUrl,
   price,
-  sizes,
-  title,
   types,
+  sizes,
 }) => {
   const dispatch = useDispatch();
   const [activeSize, setActiveSize] = React.useState(0);

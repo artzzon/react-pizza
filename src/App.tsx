@@ -26,7 +26,7 @@ export const PaginationContext =
 const App: React.FC = () => {
   const [searchValue, setSearchValue] = React.useState<string>("");
   const [currentPage, setCurrentPage] = React.useState<number>(1);
-
+  //удалить search context (вроде бы не нужно)
   return (
     <SearchContext.Provider value={{ searchValue, setSearchValue }}>
       <PaginationContext.Provider value={{ currentPage, setCurrentPage }}>
