@@ -2,6 +2,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/cartSlice";
+import { RootState } from "../../redux/store";
 
 type PizzaBlockProps = {
   id: number;
@@ -26,7 +27,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const dispatch = useDispatch();
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
-  const cartItem = useSelector((state) =>
+  const cartItem = useSelector((state: RootState) =>
     state.cartSlice.items.find(
       (item) =>
         item.id === id &&

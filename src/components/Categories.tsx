@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveCategory } from "../redux/slices/filterSlice";
 import React from "react";
+import { RootState } from "../redux/store";
 const categories = [
   "Все",
   "Мясные",
@@ -13,7 +14,7 @@ const categories = [
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const activeCategory = useSelector(
-    (state) => state.filterSlice.activeCategory
+    (state: RootState) => state.filterSlice.activeCategory
   );
 
   const onClickActiveCategory = (category: number) => {

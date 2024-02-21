@@ -7,19 +7,22 @@ import Pagination from "../components/Pagination";
 import { PaginationContext, PaginationContextType } from "../App";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPizzas } from "../redux/slices/fetchSlice";
+import { RootState } from "../redux/store";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const { pizzas, paginationMeta, status } = useSelector(
-    (state) => state.fetchSlice
+    (state: RootState) => state.fetchSlice
   );
   const activeCategory = useSelector(
-    (state) => state.filterSlice.activeCategory
+    (state: RootState) => state.filterSlice.activeCategory
   );
   const selectedSort = useSelector(
-    (state) => state.sortSlice.selectedSort.sortProperty
+    (state: RootState) => state.sortSlice.selectedSort.sortProperty
   );
-  const searchValue = useSelector((state) => state.searchSlice.searchValue);
+  const searchValue = useSelector(
+    (state: RootState) => state.searchSlice.searchValue
+  );
   const { currentPage } = React.useContext(
     PaginationContext
   ) as PaginationContextType;

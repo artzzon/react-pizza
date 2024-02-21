@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+interface FilterSliceState {
+  activeCategory: number;
+}
+
+const initialState: FilterSliceState = {
   activeCategory: 0,
 };
 

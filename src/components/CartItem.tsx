@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { minusItem, plusItem, removeItem } from "../redux/slices/cartSlice";
 import React from "react";
+import { RootState } from "../redux/store";
 // eslint-disable-next-line react/prop-types
 type CartItemProps = {
   id: number;
@@ -22,7 +23,7 @@ const CartItem: React.FC<CartItemProps> = ({
   count,
 }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) =>
+  const cartItem = useSelector((state: RootState) =>
     state.cartSlice.items.find(
       (item) => item.id === id && item.type === type && item.size === size
     )

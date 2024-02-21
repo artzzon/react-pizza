@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedSort } from "../redux/slices/sortSlice";
+import { RootState } from "../redux/store";
 
 type SortListType = {
   name: string;
@@ -18,7 +19,9 @@ const sortList: SortListType[] = [
 
 const Sort: React.FC = () => {
   const dispatch = useDispatch();
-  const selectedSort = useSelector((state) => state.sortSlice.selectedSort);
+  const selectedSort = useSelector(
+    (state: RootState) => state.sortSlice.selectedSort
+  );
   const [openSort, setOpenSort] = React.useState<boolean>(false);
 
   const onClickSelectSort = (sortId: number) => {

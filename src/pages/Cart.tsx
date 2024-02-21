@@ -3,12 +3,13 @@ import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/slices/cartSlice";
 import React from "react";
+import { RootState } from "../redux/store";
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
 
   const { totalPrice, totalCount, items } = useSelector(
-    (state) => state.cartSlice
+    (state: RootState) => state.cartSlice
   );
 
   const onClickClear = () => {
